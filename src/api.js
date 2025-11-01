@@ -2,18 +2,14 @@
 // set API_BASE to the backend origin (for example: 'http://localhost:4000').
 const API_BASE = "https://caterflow-backend.onrender.com/api";
 
+import axios from "axios";
+
 async function post(path, body) {
-  const res = await fetch(API_BASE + path, {
-    method: "POST",
+  const res = await axios.post(API_BASE + path, body, {
+    withCredentials: true,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-    credentials: "include",
   });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || res.statusText);
-  }
-  return res.json();
+  return res.data;
 }
 
 export function login(credentials) {
