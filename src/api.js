@@ -1,11 +1,9 @@
-// Simple API helper. By default it calls same-origin endpoints at /api/*. If your backend runs elsewhere,
-// set API_BASE to the backend origin (for example: 'http://localhost:4000').
-const API_BASE = "https://caterflow-backend.onrender.com/api";
-
+// API helper using same-origin proxy to backend
+// الطلبات تروح لـ /api/... على نفس الدومين (First-Party Cookies)
 import axios from "axios";
 
 async function post(path, body) {
-  const res = await axios.post(API_BASE + path, body, {
+  const res = await axios.post("/api" + path, body, {
     withCredentials: true,
     headers: { "Content-Type": "application/json" },
   });
